@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: F:\codes\github\repositories\NLP_Work\out\production\NLP_W
+ ork\Token.class
+Main-Class: Token
+

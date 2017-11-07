@@ -1,0 +1,12 @@
+*s -> *
+*es -> *
+*ies -> *y
+*ing -> */e
+*ying -> *ie
+*\w\wing -> *?
+*ed -> */e
+*ied -> *y
+*\w\wed -> *?
+went -> go
+gone -> go
+sat -> sit
