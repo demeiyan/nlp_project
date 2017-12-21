@@ -146,7 +146,7 @@ if __name__ == "__main__":
             # print(corpus)
             know_tfidf = models.TfidfModel(know_corpus)
             know_corpus_tfidf = know_tfidf[know_corpus]  # 每个句子中的每个词对应的tfidf
-            know_lsi = models.LsiModel(know_corpus_tfidf, id2word=know_dic, num_topics=20)
+            know_lsi = models.LsiModel(know_corpus_tfidf, id2word=know_dic, num_topics=15)
             corpus_lsi = know_lsi[know_corpus_tfidf]
             know_index = similarities.MatrixSimilarity(know_lsi[know_corpus])
 
