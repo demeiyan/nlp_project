@@ -10,7 +10,7 @@ def readanswer():
     :return:
     """
     with open("./data/test.txt", "r+", encoding="utf-8") as f:
-        with open('out.txt', 'w+', encoding="utf-8") as f1:
+        with open('test_answer.txt', 'w+', encoding="utf-8") as f1:
             for i in range(2040):
                 for j in range(6):
                     line = f.readline().strip()
@@ -25,14 +25,14 @@ def test():
     """
     readanswer()
     sum = 0
-    with open("out.txt", 'r') as f1:
-        with open("tmp.txt", 'r') as f2:
+    with open("test_answer.txt", 'r') as f1:
+        with open("pre_answer.txt", 'r') as f2:
             lines1 = f1.readlines()
             lines2 = f2.readlines()
     for i in range(len(lines1)):
         if lines1[i] == lines2[i]:
             sum += 1
-
+    #print('Correct: %d total: %d' % (sum, len(lines1)))
     print('Accuracy:%.2f%%' % ((sum/len(lines1))*100))
 
 
@@ -43,12 +43,12 @@ def cal_sim():
     """
     #logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
     documents = []  # 全部背景知识文本
-    # with open('./data/knowledge.txt', 'r+', encoding='utf-8') as f:
-    #     for line in f:
-    #         seg = jieba.cut(line, cut_all=False)
-    #         seg_str = ' '.join(seg)
-    #         word_list = seg_str.split()
-    #         documents.append(word_list)
+    with open('./data/knowledge.txt', 'r+', encoding='utf-8') as f:
+        for line in f:
+            seg = jieba.cut(line, cut_all=False)
+            seg_str = ' '.join(seg)
+            word_list = seg_str.split()
+            documents.append(word_list)
     with open('./data/train.txt', 'r+', encoding='utf-8') as f:
         file_lines = 61200
         sum_iter = int(file_lines / 6)
@@ -80,11 +80,12 @@ def cal_sim():
     corpus_lsi = lsi[corpus_tfidf]
     index = similarities.MatrixSimilarity(lsi[corpus])
 
-    return index, dic, documents,lsi
+    return index, dic, documents, lsi
 
 
 if __name__ == "__main__":
     top_k = 4
+    np.seterr(divide='ignore', invalid='ignore')
     index, dic, documents, lsi = cal_sim()
     question = []  # 全部查询题目每一行[B+Q]
     answer = [] # 每一行对应一个题目的四个选项[A1,A2,A3,A4]
@@ -99,7 +100,6 @@ if __name__ == "__main__":
             # strR = ''
             # strW = []
             ans = []
-            tmp = [None] * 5  # [query,R,W,W,W]
             for j in range(6):
                 line = f.readline().strip()
                 if line[0:1] == 'B' or line[0:1] == 'b':
@@ -124,7 +124,7 @@ if __name__ == "__main__":
 
     know_doc = []
 
-    with open("tmp.txt", "w+") as f:
+    with open("pre_answer.txt", "w+") as f:
         for i in range(n):
             count = [-1] * 4
             query_sentence = question[i]
@@ -146,7 +146,7 @@ if __name__ == "__main__":
             # print(corpus)
             know_tfidf = models.TfidfModel(know_corpus)
             know_corpus_tfidf = know_tfidf[know_corpus]  # 每个句子中的每个词对应的tfidf
-            know_lsi = models.LsiModel(know_corpus_tfidf, id2word=know_dic, num_topics=50)
+            know_lsi = models.LsiModel(know_corpus_tfidf, id2word=know_dic, num_topics=20)
             corpus_lsi = know_lsi[know_corpus_tfidf]
             know_index = similarities.MatrixSimilarity(know_lsi[know_corpus])
 

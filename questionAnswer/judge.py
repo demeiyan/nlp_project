@@ -23,8 +23,9 @@ def test():
     :return:
     """
     sum = 0
+    readanswer()
     with open("out.txt", 'r') as f1:
-        with open("tmp.txt", 'r') as f2:
+        with open("pre_answer.txt", 'r') as f2:
             lines1 = f1.readlines()
             lines2 = f2.readlines()
     # print(lines1)
@@ -37,7 +38,6 @@ def test():
 
 
 if __name__ == '__main__':
-    print(sys.path)
     test()
 
 

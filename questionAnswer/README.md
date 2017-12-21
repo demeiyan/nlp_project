@@ -32,3 +32,10 @@
 
 
 ##  4、（optional）参考 reading wikipedia to answer open-domain questions，实现该论文。考虑到时间以及实现难度，并不强制要求实现。
+
+
+## 待做(现在使用的是余弦相似度的方法,最多能到38%,使用神经网络能到45%左右,有时间实现一下)
+    * 我实现的方法
+    ![初步想法](QA_sim.png)
+    * 使用lstm神经网络的方法
+    ![使用lstm等神经网络的方法](QA_NN.png)
