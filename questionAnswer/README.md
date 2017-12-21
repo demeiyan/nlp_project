@@ -31,4 +31,4 @@
   * deadline：2017年12月21日 23:59
 
 
-##  4、（optional）参考 reading wikipedia to answer open-domain questions，实现改论文。考虑到时间以及实现难度，并不强制要求实现。
+##  4、（optional）参考 reading wikipedia to answer open-domain questions，实现该论文。考虑到时间以及实现难度，并不强制要求实现。
