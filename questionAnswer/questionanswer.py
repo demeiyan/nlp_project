@@ -43,12 +43,12 @@ def cal_sim():
     """
     #logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
     documents = []  # 全部背景知识文本
-    with open('./data/knowledge.txt', 'r+', encoding='utf-8') as f:
-        for line in f:
-            seg = jieba.cut(line, cut_all=False)
-            seg_str = ' '.join(seg)
-            word_list = seg_str.split()
-            documents.append(word_list)
+    # with open('./data/knowledge.txt', 'r+', encoding='utf-8') as f:
+    #     for line in f:
+    #         seg = jieba.cut(line, cut_all=False)
+    #         seg_str = ' '.join(seg)
+    #         word_list = seg_str.split()
+    #         documents.append(word_list)
     with open('./data/train.txt', 'r+', encoding='utf-8') as f:
         file_lines = 61200
         sum_iter = int(file_lines / 6)
@@ -146,7 +146,7 @@ if __name__ == "__main__":
             # print(corpus)
             know_tfidf = models.TfidfModel(know_corpus)
             know_corpus_tfidf = know_tfidf[know_corpus]  # 每个句子中的每个词对应的tfidf
-            know_lsi = models.LsiModel(know_corpus_tfidf, id2word=know_dic, num_topics=15)
+            know_lsi = models.LsiModel(know_corpus_tfidf, id2word=know_dic, num_topics=30)
             corpus_lsi = know_lsi[know_corpus_tfidf]
             know_index = similarities.MatrixSimilarity(know_lsi[know_corpus])
 
