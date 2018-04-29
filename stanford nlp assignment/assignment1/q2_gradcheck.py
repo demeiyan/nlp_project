@@ -2,6 +2,7 @@
 
 import numpy as np
 import random
+import q2_sigmoid as sig
 
 
 # First implement a gradient checker by filling in the following functions
@@ -16,6 +17,7 @@ def gradcheck_naive(f, x):
 
     rndstate = random.getstate()
     random.setstate(rndstate)
+    print f(x)
     fx, grad = f(x) # Evaluate function value at original point
     h = 1e-4        # Do not change this!
 
@@ -36,9 +38,8 @@ def gradcheck_naive(f, x):
         # before calling f(x) each time. This will make it possible
         # to test cost functions with built in randomness later.
 
-        ### YOUR CODE HERE:
-        raise NotImplementedError
-        ### END YOUR CODE
+        random.setstate(rndstate)
+        numgrad = (f(x[ix]+h)[0] - f(x[ix]-h)[0])/(2*h)
 
         # Compare gradients
         reldiff = abs(numgrad - grad[ix]) / max(1, abs(numgrad), abs(grad[ix]))
@@ -75,9 +76,8 @@ def your_sanity_checks():
     your additional tests be graded.
     """
     print "Running your sanity checks..."
-    ### YOUR CODE HERE
-    raise NotImplementedError
-    ### END YOUR CODE
+    quad = lambda x: (np.sum(sig.sigmoid(x)), sig.sigmoid_grad(sig.sigmoid(x)))
+    gradcheck_naive(quad, np.random.randn(4,5))
 
 
 if __name__ == "__main__":
