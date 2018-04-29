@@ -27,7 +27,6 @@ def softmax(x):
     x -- You are allowed to modify x in-place
     """
     orig_shape = x.shape
-    print len(x.shape)
     if len(x.shape) > 1:
         # Matrix
         x = np.exp(x - np.max(x, axis=1)[:, np.newaxis]) / np.sum(np.exp(x - np.max(x, axis=1)[:, np.newaxis]), axis=1)[:, np.newaxis]
