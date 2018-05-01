@@ -88,10 +88,18 @@ def your_sanity_checks():
     """
     print "Running your sanity checks..."
     ### YOUR CODE HERE
-    raise NotImplementedError
+    N = 100
+    dimensions = [64, 128, 32]
+    data = np.random.randn(N, dimensions[0])
+    labels = np.zeros((N, dimensions[2]))
+    for i in xrange(N):
+        labels[i, random.randint(0, dimensions[2]-1)] = 1
+    params = np.random.randn((dimensions[0] + 1)*dimensions[1] + (dimensions[1] + 1)*dimensions[2],)
+    gradcheck_naive(lambda params:
+                    forward_backward_prop(data, labels, params, dimensions), params)
     ### END YOUR CODE
 
 
 if __name__ == "__main__":
     sanity_check()
-    # your_sanity_checks()
+    your_sanity_checks()
